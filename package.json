@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/RAKS-Humber/FinalProject_ITE5315/issues"
   },
-  "homepage": "https://github.com/RAKS-Humber/FinalProject_ITE5315#readme"
+  "homepage": "https://github.com/RAKS-Humber/FinalProject_ITE5315#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.2.4"
+  }
 }
