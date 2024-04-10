@@ -1,0 +1,24 @@
+{{#if restaurants}}
+<table border='1'>
+    <tr>
+        <td>Name</td>
+        <td>Cuisine</td>
+       
+    </tr>
+
+    
+        {{#each restaurants}}
+            <tr>
+                <td>
+                    {{name}}
+                </td>
+                <td>
+                    {{cuisine}}
+                </td>
+        
+            </tr>
+        {{/each}}
+    
+        
+</table>   
+{{/if}}
