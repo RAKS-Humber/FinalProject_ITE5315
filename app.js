@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require("express");
+const exphbs = require('express-handlebars');
 const path = require("path");
 // Import mongoose
 const mongoose = require("mongoose");
@@ -26,14 +27,15 @@ let db = mongoose.connection;
 // Initialize express app
 const app = express();
 
+
+
 // Initialize built-in middleware for urlencoding and json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 const handlebars = require('express-handlebars');
-app.engine('hbs', handlebars.engine({extname: '.hbs'}));
-
-
+app.engine('.hbs', handlebars.engine({extname: '.hbs'}));
+app.set('view engine', 'hbs');
 let Restaurant = require("./models/restaurant");
 const { Console } = require('console');
 
@@ -61,12 +63,14 @@ app.use("/", function (req, res) {
     .limit(perPage)
     .lean()
     .then((restaurants)=>{
-        console.log("default url")
-        console.log(restaurants[0].name);
+        console.log("Restaurants");
+        console.log(restaurants);
+        // Render index.hbs for pagination
+        res.render('index', {data: restaurants});
         //res.status(200).render("index", {
          //   restaurants: restaurants,layout: false 
          // });
-         res.status(200).send(restaurants);
+        //  res.status(200).send(restaurants);
     })
     .catch((err) => {
         res.status(500).json({ message: err.message });

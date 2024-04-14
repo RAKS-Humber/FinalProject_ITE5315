@@ -6,13 +6,9 @@ const { check, validationResult } = require("express-validator");
 // Import Book Mongoose schemas
 let Restaurant = require("../models/restaurant");
 
-
-
 // Attach routes to router
 router
   .route("/")
-  // Get method renders the pug add_book page
-  
   .post(async (req, res) => {
     try{
     // Async validation check of form elements
@@ -69,6 +65,21 @@ router
   {
     console.log(err.message);
   }
+  });
+
+router
+  .route("/addRestaurant")
+  .get((req,res) =>{
+    res.render('addForm');
+    console.log("I am here");
+  });
+
+  router
+  .route("/editRestaurant")
+  .post((req,res) =>{
+    res.render("editForm", {restaurant: req.body.data})
+    console.log(req.body.data);
+    
   });
 
 // Route that returns and deletes Restaurant based on id
