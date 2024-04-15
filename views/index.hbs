@@ -37,7 +37,16 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.cuisine}}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.borough}}</td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <a class="text-indigo-600 hover:text-indigo-900" onclick="editRestaurant('{{this.restaurant_id}}', '{{this.name}}', '{{this.cuisine}}', '{{this.borough}}')">Edit</a>
+                      <form id="editRestaurantForm" action="/api/restaurant/editRestaurant" method="POST">
+                          <input type="hidden" name="restaurant_id" value="{{this.restaurant_id}}">
+                          <input type="hidden" name="name" value="{{this.name}}">
+                          <input type="hidden" name="cuisine" value="{{this.cuisine}}">
+                          <input type="hidden" name="borough" value="{{this.borough}}">
+                          <input type="hidden" name="building" value="{{this.address.building}}">
+                          <input type="hidden" name="street" value="{{this.address.street}}">
+                          <input type="hidden" name="zipcode" value="{{this.address.zipcode}}">
+                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Edit</button>
+                      </form>
                     </td>
                 </tr>
             {{/each}}
@@ -45,7 +54,28 @@
         </table>
       </div>
     </div>
+    
   </div>
+
+  <nav class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6" aria-label="Pagination">
+  <div class="sm:block">
+    <p class="text-sm text-gray-700">
+      Showing
+      <span class="font-medium">{{start}}</span>
+      to
+      <span class="font-medium">{{end}}</span>
+      of
+      <span class="font-medium">{{count}}</span>
+      results
+    </p>
+  </div>
+  <div class="flex flex-1 justify-between sm:justify-end">
+    <a href="/?page={{#prevPage page}}{{/prevPage}}&perPage={{perPage}}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Previous</a>
+    <a href="/?page={{#nextPage page}}{{/nextPage}}&perPage={{perPage}}" class="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Next</a>
+  </div>
+</nav>
+
+
 </div>
 
 <script>

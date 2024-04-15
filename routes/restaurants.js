@@ -77,24 +77,26 @@ router
   router
   .route("/editRestaurant")
   .post((req,res) =>{
-    res.render("editForm", {restaurant: req.body.data})
-    console.log(req.body.data);
+    res.render("editForm", {restaurant: req.body})
+    console.log(req.body);
     
   });
 
+  router
+  .route("/search")
+  .get((req,res) =>{
+    res.render("search")
+    
+  });
 // Route that returns and deletes Restaurant based on id
 router
   .route("/:id")
   .get((req, res) => {
     // Get Restaurant by id from MongoDB
-    console.log('restaurant by id');
-    Restaurant.findById({_id:req.params.id})
+    console.log('restaurant by id'+req.params.id);
+    Restaurant.findById({_id:req.params.id}).lean()
     .then((restaurant)=>{
-      //res.render("restaurant", {
-      //restaurant: restaurant,layout: false 
-        
-      //});
-      res.status(200).send(restaurant);
+      res.render("editForm", {restaurant:restaurant});
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });

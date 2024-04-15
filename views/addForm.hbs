@@ -1,6 +1,6 @@
 
 <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-  <form>
+  <form method="POST" action="/api/restaurant/addRestaurant">
   <div class="space-y-12 sm:space-y-16">
 
     <div>
@@ -48,6 +48,30 @@
             <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
           </div>
         </div>
+            {{!-- <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900">Grades</h2>
+            <div class="flex justify-between" id="grade-section">
+              <div class="sm:col-span-2 sm:col-start-1 w-10">
+                <label for="date" class="block text-sm font-medium leading-6 text-gray-900">Date</label>
+                <div class="mt-2">
+                  <input type="text" name="date" id="date" autocomplete="date" class="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+              </div>
+              <div class="sm:col-span-2 sm:col-start-1 w-10">
+                <label for="grade" class="block text-sm font-medium leading-6 text-gray-900">Grade</label>
+                <div class="mt-2">
+                  <input type="text" name="grade" id="grade" autocomplete="date" class="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+              </div>
+              <div class="sm:col-span-2 sm:col-start-1 w-10">
+                <label for="score" class="block text-sm font-medium leading-6 text-gray-900">Score</label>
+                <div class="mt-2">
+                  <input type="text" name="score" id="score" autocomplete="date" class="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+              </div>
+            </div>
+            <button id="add-grade-btn" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Add Grade</button>
+          </div> --}}
       </div>
     </div>
   </div>
