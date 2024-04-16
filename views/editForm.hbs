@@ -31,22 +31,53 @@
          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="building" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Building</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input value="{{restaurant.building}}" type="text" name="building" id="building" autocomplete="building" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6">
+            <input value="{{restaurant.address.building}}" type="text" name="building" id="building" autocomplete="building" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6">
           </div>
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Street address</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input value="{{restaurant.street}}" type="text" name="street-address" id="street-address" autocomplete="street-address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6">
+            <input value="{{restaurant.address.street}}" type="text" name="street-address" id="street-address" autocomplete="street-address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6">
           </div>
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">ZIP / Postal code</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input value="{{restaurant.zipcode}}" type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+            <input value="{{restaurant.address.zipcode}}" type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
           </div>
+        </div>
+      </div>
+    
+      <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Grades</h2>
+        <div class="flex flex-col mt-10 space-y-8">
+          <!-- Grade Input Fields -->
+          {{#each restaurant.grades}}
+              <div class="flex justify-between">
+                <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                  <label for="grade-date" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Date</label>
+                  <div class="mt-2 sm:col-span-2 sm:mt-0">
+                    <input type="text" name="grade-date" value="{{this.date}}" id="grade-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+
+                <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                  <label for="grade-grade" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Grade</label>
+                  <div class="mt-2 sm:col-span-2 sm:mt-0">
+                    <input type="text" name="grade-grade" value="{{this.grade}}" id="grade-grade" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+
+                <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+                  <label for="grade-score" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Score</label>
+                  <div class="mt-2 sm:col-span-2 sm:mt-0">
+                    <input type="number" name="grade-score" value="{{this.score}}" id="grade-score" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+              </div>
+          {{/each}}
         </div>
       </div>
     </div>
@@ -56,8 +87,8 @@
     <a href="/">
       <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
     </a>
-
-    <button type="submit" class="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add</button>
+    <button type="submit" class="inline-flex justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Delete</button>
+    <button type="submit" class="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
   </div>
 </form>
 </div>

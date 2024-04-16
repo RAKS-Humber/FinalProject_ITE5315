@@ -37,16 +37,7 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.cuisine}}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.borough}}</td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <form id="editRestaurantForm" action="/api/restaurant/editRestaurant" method="POST">
-                          <input type="hidden" name="restaurant_id" value="{{this.restaurant_id}}">
-                          <input type="hidden" name="name" value="{{this.name}}">
-                          <input type="hidden" name="cuisine" value="{{this.cuisine}}">
-                          <input type="hidden" name="borough" value="{{this.borough}}">
-                          <input type="hidden" name="building" value="{{this.address.building}}">
-                          <input type="hidden" name="street" value="{{this.address.street}}">
-                          <input type="hidden" name="zipcode" value="{{this.address.zipcode}}">
-                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Edit</button>
-                      </form>
+                      <a href="/api/restaurant/{{this._id}}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
                     </td>
                 </tr>
             {{/each}}
@@ -70,8 +61,8 @@
     </p>
   </div>
   <div class="flex flex-1 justify-between sm:justify-end">
-    <a href="/?page={{#prevPage page}}{{/prevPage}}&perPage={{perPage}}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Previous</a>
-    <a href="/?page={{#nextPage page}}{{/nextPage}}&perPage={{perPage}}" class="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Next</a>
+    <a href="/api/restaurant/?page={{#prevPage page}}{{/prevPage}}&perPage={{perPage}}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Previous</a>
+    <a href="/api/restaurant/?page={{#nextPage page}}{{/nextPage}}&perPage={{perPage}}" class="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Next</a>
   </div>
 </nav>
 

@@ -13,7 +13,81 @@
             {{> footer}}
         </div>
     </body>
+    <script>
+  // Function to add a new grade input section
+  function addGradeSection() {
+    console.log("hello from hbs")
+    // Get the container div for grades
+    var gradesContainer = document.getElementById("grades-container");
 
+    // Create a new div to hold the grade input fields
+    var gradeDiv = document.createElement("div");
+    gradeDiv.classList.add("sm:grid", "sm:grid-cols-3", "sm:items-start", "sm:gap-4", "sm:py-6");
+
+    // Create and append the date input field
+    var dateLabel = document.createElement("label");
+    dateLabel.setAttribute("for", "grade-date");
+    dateLabel.classList.add("block", "text-sm", "font-medium", "leading-6", "text-gray-900", "sm:pt-1.5");
+    dateLabel.textContent = "Date";
+
+    var dateInput = document.createElement("input");
+    dateInput.setAttribute("type", "date");
+    dateInput.setAttribute("name", "grade-date");
+    dateInput.setAttribute("class", "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6");
+
+    var dateDiv = document.createElement("div");
+    dateDiv.classList.add("mt-2", "sm:col-span-2", "sm:mt-0");
+    dateDiv.appendChild(dateInput);
+
+    // Append date label and input to grade div
+    gradeDiv.appendChild(dateLabel);
+    gradeDiv.appendChild(dateDiv);
+
+    // Create and append the grade input field
+    var gradeLabel = document.createElement("label");
+    gradeLabel.setAttribute("for", "grade-grade");
+    gradeLabel.classList.add("block", "text-sm", "font-medium", "leading-6", "text-gray-900", "sm:pt-1.5");
+    gradeLabel.textContent = "Grade";
+
+    var gradeInput = document.createElement("input");
+    gradeInput.setAttribute("type", "text");
+    gradeInput.setAttribute("name", "grade-grade");
+    gradeInput.setAttribute("class", "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6");
+
+    var gradeDivInput = document.createElement("div");
+    gradeDivInput.classList.add("mt-2", "sm:col-span-2", "sm:mt-0");
+    gradeDivInput.appendChild(gradeInput);
+
+    // Append grade label and input to grade div
+    gradeDiv.appendChild(gradeLabel);
+    gradeDiv.appendChild(gradeDivInput);
+
+    // Create and append the score input field
+    var scoreLabel = document.createElement("label");
+    scoreLabel.setAttribute("for", "grade-score");
+    scoreLabel.classList.add("block", "text-sm", "font-medium", "leading-6", "text-gray-900", "sm:pt-1.5");
+    scoreLabel.textContent = "Score";
+
+    var scoreInput = document.createElement("input");
+    scoreInput.setAttribute("type", "number");
+    scoreInput.setAttribute("name", "grade-score");
+    scoreInput.setAttribute("class", "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6");
+
+    var scoreDiv = document.createElement("div");
+    scoreDiv.classList.add("mt-2", "sm:col-span-2", "sm:mt-0");
+    scoreDiv.appendChild(scoreInput);
+
+    // Append score label and input to grade div
+    gradeDiv.appendChild(scoreLabel);
+    gradeDiv.appendChild(scoreDiv);
+
+    // Append the new grade div to the container
+    gradesContainer.appendChild(gradeDiv);
+  }
+  console.log("hello from hbs 2");
+  // Add event listener to the "Add Grade" button
+  document.getElementById("add-grade-btn").addEventListener("click", addGradeSection);
+</script>
     
 
 </html>

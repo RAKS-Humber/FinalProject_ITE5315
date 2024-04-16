@@ -2,10 +2,9 @@
 <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
   <form method="POST" action="/api/restaurant/addRestaurant">
   <div class="space-y-12 sm:space-y-16">
-
     <div>
       <h2 class="text-base font-semibold leading-7 text-gray-900">Restaurant Information</h2>
-      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-600">Add your new restaurant to the list</p>
       <div class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="restaurant-name" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Restaurant name</label>
@@ -48,31 +47,48 @@
             <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
           </div>
         </div>
-            {{!-- <div>
-            <h2 class="text-base font-semibold leading-7 text-gray-900">Grades</h2>
-            <div class="flex justify-between" id="grade-section">
-              <div class="sm:col-span-2 sm:col-start-1 w-10">
-                <label for="date" class="block text-sm font-medium leading-6 text-gray-900">Date</label>
-                <div class="mt-2">
-                  <input type="text" name="date" id="date" autocomplete="date" class="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-              <div class="sm:col-span-2 sm:col-start-1 w-10">
-                <label for="grade" class="block text-sm font-medium leading-6 text-gray-900">Grade</label>
-                <div class="mt-2">
-                  <input type="text" name="grade" id="grade" autocomplete="date" class="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-              <div class="sm:col-span-2 sm:col-start-1 w-10">
-                <label for="score" class="block text-sm font-medium leading-6 text-gray-900">Score</label>
-                <div class="mt-2">
-                  <input type="text" name="score" id="score" autocomplete="date" class="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
+      </div>
+
+      <!-- New Grades Section -->
+  <div>
+    <h2 class="text-base font-semibold leading-7 text-gray-900">Grades</h2>
+    <div class="mt-10 space-y-8">
+      <!-- Grade Input Fields -->
+      <div id="grades-container">
+          <div class="flex justify-between">
+            <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label for="grade-date" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Date</label>
+              <div class="mt-2 sm:col-span-2 sm:mt-0">
+                <input type="date" name="grade-date" id="grade-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
               </div>
             </div>
-            <button id="add-grade-btn" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Add Grade</button>
-          </div> --}}
+
+            <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label for="grade-grade" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Grade</label>
+              <div class="mt-2 sm:col-span-2 sm:mt-0">
+                <input type="text" name="grade-grade" id="grade-grade" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+              <label for="grade-score" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Score</label>
+              <div class="mt-2 sm:col-span-2 sm:mt-0">
+                <input type="number" name="grade-score" id="grade-score" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+              </div>
+            </div>
+          </div>
       </div>
+      
+
+
+      <!-- Button to Add Multiple Grades -->
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+        <div class="mt-2 sm:col-span-2 sm:mt-0">
+          <button type="button" id="add-grade-btn" class="bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Grade</button>
+        </div>
+      </div>
+    </div>
+  </div>
     </div>
   </div>
 
@@ -85,4 +101,5 @@
   </div>
 </form>
 </div>
+
 
