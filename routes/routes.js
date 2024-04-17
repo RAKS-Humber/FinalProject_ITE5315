@@ -6,6 +6,8 @@ const router = express.Router();
 // Import Express validatior
 const { check,query, validationResult } = require("express-validator");
 
+
+
 // Import Book Mongoose schemas
 let Restaurant = require("../models/restaurant");
 let User = require('../models/user');
@@ -159,7 +161,7 @@ check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
           const result = validationResult(req);
           if (result.isEmpty()) {
               const page = req.query.page;
-              const perPage = req.query.perPage;
+              const perPage = parseInt(req.query.perPage);
               const borough = req.query.borough;
               console.log(borough + "________borough");
               Restaurant.countRestaurants().then((count) => {
