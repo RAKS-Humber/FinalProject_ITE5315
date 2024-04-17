@@ -63,7 +63,7 @@ app.use("/",verifyToken,(req, res) => {
         if (err)
             res.render("login", { layout: 'auth' });
         else{
-            res.redirect('/api/restaurant')
+            res.redirect('/api/restaurant?page=1&perPage=10')
         }
     })
   });

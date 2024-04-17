@@ -10,7 +10,7 @@ const restaurantSchema = mongoose.Schema({
   },
   restaurant_id: {
     type: String,
-    required: true
+    required: false
   },
   grades: [{
     date: Date,
@@ -34,7 +34,7 @@ const restaurantSchema = mongoose.Schema({
 });
 
 // Define the Restaurant model
-const Restaurant = mongoose.model('Restaurant', restaurantSchema);
+let Restaurant =mongoose.model('Restaurant', restaurantSchema);
 
 // Function to initialize the connection and model
 function initialize(connectionString) {
@@ -59,6 +59,7 @@ function addNewRestaurant(data) {
 function getAllRestaurants(page, perPage, borough) {
   const skip = (page - 1) * perPage;
   let query = Restaurant.find().skip(skip).limit(perPage).lean().sort({ restaurant_id: 1 });
+  
   if (borough) {
     query = query.where('borough').equals(borough);
   }
@@ -85,6 +86,7 @@ function countRestaurants() {
 }
 
 module.exports = {
+  Restaurant,
   initialize,
   addNewRestaurant,
   getAllRestaurants,

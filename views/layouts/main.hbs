@@ -18,7 +18,7 @@
   function addGradeSection() {
     console.log("hello from hbs")
     // Get the container div for grades
-    var gradesContainer = document.getElementById("grades-container");
+    var gradesContainer = document.getElementById("grades_container");
 
     // Create a new div to hold the grade input fields
     var gradeDiv = document.createElement("div");
@@ -26,13 +26,13 @@
 
     // Create and append the date input field
     var dateLabel = document.createElement("label");
-    dateLabel.setAttribute("for", "grade-date");
+    dateLabel.setAttribute("for", "grade_date");
     dateLabel.classList.add("block", "text-sm", "font-medium", "leading-6", "text-gray-900", "sm:pt-1.5");
     dateLabel.textContent = "Date";
 
     var dateInput = document.createElement("input");
     dateInput.setAttribute("type", "date");
-    dateInput.setAttribute("name", "grade-date");
+    dateInput.setAttribute("name", "grades[date][]");
     dateInput.setAttribute("class", "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6");
 
     var dateDiv = document.createElement("div");
@@ -45,13 +45,13 @@
 
     // Create and append the grade input field
     var gradeLabel = document.createElement("label");
-    gradeLabel.setAttribute("for", "grade-grade");
+    gradeLabel.setAttribute("for", "grade_grade");
     gradeLabel.classList.add("block", "text-sm", "font-medium", "leading-6", "text-gray-900", "sm:pt-1.5");
     gradeLabel.textContent = "Grade";
 
     var gradeInput = document.createElement("input");
     gradeInput.setAttribute("type", "text");
-    gradeInput.setAttribute("name", "grade-grade");
+    gradeInput.setAttribute("name", "grades[grade][]");
     gradeInput.setAttribute("class", "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6");
 
     var gradeDivInput = document.createElement("div");
@@ -64,13 +64,13 @@
 
     // Create and append the score input field
     var scoreLabel = document.createElement("label");
-    scoreLabel.setAttribute("for", "grade-score");
+    scoreLabel.setAttribute("for", "grade_score");
     scoreLabel.classList.add("block", "text-sm", "font-medium", "leading-6", "text-gray-900", "sm:pt-1.5");
     scoreLabel.textContent = "Score";
 
     var scoreInput = document.createElement("input");
     scoreInput.setAttribute("type", "number");
-    scoreInput.setAttribute("name", "grade-score");
+    scoreInput.setAttribute("name", "grades[score][]");
     scoreInput.setAttribute("class", "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6");
 
     var scoreDiv = document.createElement("div");

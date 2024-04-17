@@ -27,65 +27,127 @@ function verifyToken(req,res,next){
 
 const urlencodedParser = express.urlencoded({extended: false})
 // api/restaurants
-router.route("/").post((req,res)=>{
-  // TODO: Add Restaurant to Db here
-  async (req, res) => {
-    try{
-    // Async validation check of form elements
-    console.log("started");
-    await check("name", "Name is required").notEmpty().run(req);
-    await check("cuisine", "cuisine is required").notEmpty().run(req);
-    await check("borough", "Borough is required").notEmpty().run(req);
-    await check("restaurant_id", "restaurant_id is required").notEmpty().run(req);
-    await check("address", "Address is required").notEmpty().run(req);
-    await check("grades", "Grades is required").notEmpty().run(req);
-    //await check("building", "building is required").notEmpty().run(req);
-    //await check("coord_0", "coord_0 is required").notEmpty().run(req);
-    //await check("coord_1", "coord_1 is required").notEmpty().run(req);
-    //await check("grades", "grades is required").notEmpty().run(req);
-    //await check("score", "score is required").notEmpty().run(req);
-    // Get validation errors
-    const errors = validationResult(req);
+router.route("/").post(verifyToken, 
+check("restaurant_name", "Name is required").notEmpty().isLength({ min: 2 }),
+check("cuisine", "cuisine is required").notEmpty().isLength({ min: 2 }),
+check("borough", "Borough is required").notEmpty().isLength({ min: 2 }),
+check("building", "Building is required").notEmpty(),
+check("street_address", "Street_address is required").notEmpty(),
+check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
+ (req, res) => {
+        jwt.verify(req.token, process.env.SECRETKEY, (err, decoded) => {
+          if (err){
+            res.render('error401');
+          } else {
+            console.log("Adding a restaurant")
+        try{
+        
+        const errors = validationResult(req);
+        
+        if (errors.isEmpty()) {
+          
 
-    if (errors.isEmpty()) {
-      // Create new Restaurant from mongoose model
-      let restaurant = new Restaurant();
-      // Assign attributes based on form data
-      restaurant.name = req.body.name;
-      restaurant.cuisine = req.body.cuisine;
-      restaurant.restaurant_id = req.body.restaurant_id;
-      restaurant.borough = req.body.borough;
-      //console.log(req.body.address.coord[0]+"---------coord0")
-      restaurant.address=req.body.address;
-      //restaurant.address.building = req.body.address.building;
-      //restaurant.address.street = req.body.address.street;
-      //restaurant.address.zipcode = req.body.address.zipcode;
-      //restaurant.address.coord[0] = req.body.address.coord[0];
-      //restaurant.address.coord[1] = req.body.address.coord[1];
+          
+          const restaurant ={
+          
+          name : req.body.restaurant_name,
+          cuisine : req.body.cuisine,
+          
+          borough : req.body.borough,
+
+          address:{
+            building:req.body.building,
+            street:req.body.street_address,
+            zipcode:req.body.postal_code
+          }
+          
+          };
+
+          //console.log(typeof req.body.grades);
+
+          restaurant.grades = [];
+
+          
+          let grades = req.body.grades;
+
+          if (!Array.isArray(grades)) {
+              
+              grades = [grades];
+          }
+
+
+          
+          const restaurantGrades = [];
+          grades.forEach((gradeEntry) => {
+              console.log(gradeEntry.grade);
+              const dateArray = gradeEntry.date;
+              const gradeArray = gradeEntry.grade;
+              const scoreArray = gradeEntry.score;
+              
+              
+              
       
-      //console.log(typeof(req.body.grades));
-      //var result = Object.entries(req.body.grades);
-      //console.log(result[0]);
-      const gradesData = req.body.grades.map(grade => ({
-        date: grade.date.$date,
-        grade: grade.grade,
-        score: grade.score
-    }));
-     
-      restaurant.grades=gradesData;
+              if(dateArray!=null)
+              {
+                for (let i = 0; i < dateArray.length; i++) {
+                    
+                    const gradeObject = {
+                        date: new Date(dateArray[i]), 
+                        grade: gradeArray[i], 
+                        score: scoreArray[i] 
+                    };
+        
+                    
+                    restaurantGrades.push(gradeObject);
+                }
+             }
+              
+          });
 
-      console.log("restaurant name"+req.body.name);
-      // Save Restaurant to MongoDB
+          restaurant.grades = restaurantGrades;  
 
-      await restaurant.save();
-      res.status(201).json(restaurant);
-    } 
-  }
-  catch(err)
-  {
-    console.log(err.message);
-  }
-  }
+
+
+          Restaurant.addNewRestaurant(restaurant).then(()=>{
+            
+            console.log(restaurant+"restaurant-------")
+            res.redirect("/")
+            //res.render('addForm');
+          })
+          .catch((err) => {
+            
+            console.log(err.message+"error while adding a restaurant");
+            const alert = err.array()
+            res.render('addForm', {
+              errs: alert
+              
+          });
+              
+          }); 
+          
+        }
+        else
+        {
+          
+            const alert = errors.array()
+            res.render('addForm', {
+                errs: alert
+                
+            });
+        
+        } 
+      }
+      catch(err)
+      {
+        res.render('error401');
+        console.log(err.message);
+      }
+      console.log("adding form data");
+      console.log("adding form data"+req.body.restaurant_name);
+      
+      }
+      
+    })
 }).get(cookieParser(), verifyToken, query('page').notEmpty().isNumeric(), query('perPage').notEmpty().isNumeric(), (req, res) => {
   console.log(validationResult(req));
   jwt.verify(req.token, process.env.SECRETKEY, (err, decoded) => {
@@ -260,7 +322,8 @@ router
         console.log("I am here");
       }
     })
-  });
+  })
+  
 // Search Restaurant Form
   router
   .route("/search")
@@ -283,9 +346,9 @@ router
         res.render('error401');
       } else {
         console.log('restaurant by id'+Restaurant.getRestaurantById(req.params.id));
-
+        
         Restaurant.getRestaurantById(req.params.id).then((restaurant)=>{
-          res.render("editForm", {restaurant:restaurant});
+          res.render("editForm", {restaurant:restaurant,rest_id:req.params.id});
         })
         .catch((err) => {
           res.status(500).json({ message: err.message });
@@ -294,41 +357,112 @@ router
     })
   })
   .delete(verifyToken,(req,res) =>{
+    console.log("delete");
     jwt.verify(req.token, process.env.SECRETKEY, (err, decoded) => {
+
           if (err){
+            console.log("error deleting")
             res.render('error401');
           } else {
-          Restaurant.deleteOne({_id:req.params.id})
-          .then(()=>{
-            res.status(200).send("Deleted Successfully");
-          })
-          .catch((err) => {
-            res.status(500).json({ message: err.message });
-          });
+          
+            console.log("Deleting the restaurant"+req.params.rest_id);
+          //Restaurant.deleteOne({_id:req.params.id})
+          //.then(()=>{
+          //  res.status(200).send("Deleted Successfully");
+          //})
+          //.catch((err) => {
+          //  res.status(500).json({ message: err.message });
+          //});
         }
       })  
     })
-    .put(verifyToken,(req,res) =>{
+    .post(verifyToken,(req,res) =>{
       jwt.verify(req.token, process.env.SECRETKEY, (err, decoded) => {
             if (err){
               res.render('error401');
             } else {
               // TODO: Update Restaurant data 
-              const restaurant = {};
-              restaurant.cuisine = req.body.cuisine;
-              restaurant.borough = req.body.borough;
-              console.log("cuisine"+req.body.cuisine);
-              console.log("borough"+req.body.borough);
-              Restaurant.updateOne({_id:req.params.id},{$set:restaurant})
-              .then(()=>{
-                //res.status(200).send("Deleted Successfully");
-                console.log('Updated Successfully');
-                res.status(200).send("Updated Successfully");
-                //res.redirect("api/restaurant/"+req.params.id);
-              })
-              .catch((err) => {
-                res.status(500).json({ message: err.message });
-              });
+
+
+             if(req.body.method_type =='delete')
+             {
+                console.log("Deleting the restaurant"+req.body.rest_id);
+                Restaurant.deleteRestaurantById(req.body.rest_id).then(()=>{
+                  //console.log('Deleted Successfully');
+                  //res.render("addForm");
+                  res.redirect("/")
+                  //console.log(restaurant+"restaurant updated successfully-------")
+                  //res.render('addForm');
+                })
+                .catch((err) => {
+                  //res.status(500).json({ message: err.message });
+                  console.log(err.message+"error while updating a restaurant");
+                    res.render('error401');
+                    
+                });
+             } 
+             else
+             {
+              console.log("uppdating restaurant details"+req.body.rest_id);
+
+              const restaurant ={
+               // Assign attributes based on form data
+               name : req.body.restaurant_name,
+               cuisine : req.body.cuisine,
+               //restaurant.restaurant_id = req.body.restaurant_id;
+               borough : req.body.borough,
+   
+               address:{
+                 building:req.body.building,
+                 street:req.body.street_address,
+                 zipcode:req.body.postal_code
+               }
+               
+               };
+   
+               console.log(typeof req.body.grades);
+   
+               restaurant.grades = [];
+ 
+             
+               const dateArray = req.body.grade_date;
+               const gradeArray = req.body.grade_grade;
+               const scoreArray = req.body.grade_score;
+               
+               console.log("dates as array"+req.body.grade_date);
+               const restaurantGrades = [];
+       
+               if(dateArray!=null)
+               {
+                 for (let i = 0; i < dateArray.length; i++) {
+                     
+                     const gradeObject = {
+                         date: new Date(dateArray[i]), 
+                         grade: gradeArray[i], 
+                         score: scoreArray[i] 
+                     };
+         
+                     
+                     restaurantGrades.push(gradeObject);
+                 }
+              }
+              restaurant.grades = restaurantGrades;
+             
+   
+               Restaurant.updateRestaurantById(restaurant,req.body.rest_id).then(()=>{
+                 //res.render("editForm", {restaurant:restaurant});
+                 //console.log(restaurant+"restaurant updated successfully-------")
+                 //res.render('addForm');
+                 res.redirect("/")
+               })
+               .catch((err) => {
+                 //res.status(500).json({ message: err.message });
+                 console.log(err.message+"error while updating a restaurant");
+                   res.render('error401');
+                   
+               });
+             }
+             
             }
       })
   })

@@ -1,15 +1,25 @@
 
 <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-  <form method="POST" action="/api/restaurant/addRestaurant">
+  <form method="POST" action="/api/restaurant/">
   <div class="space-y-12 sm:space-y-16">
     <div>
       <h2 class="text-base font-semibold leading-7 text-gray-900">Restaurant Information</h2>
       <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-600">Add your new restaurant to the list</p>
       <div class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+         {{#if errs }}
+            {{#each errs}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+             {{this.msg }}
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+        {{/each}}
+    {{/if}}
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="restaurant-name" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Restaurant name</label>
+          <label for="restaurant_name" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Restaurant name</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input type="text" name="restaurant-name" id="restaurant-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+            <input type="text" name="restaurant_name" id="restaurant_name" autocomplete="restaurant_name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -35,16 +45,16 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Street address</label>
+          <label for="street_address" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Street address</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6">
+            <input type="text" name="street_address" id="street_address" autocomplete="street_address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm sm:leading-6">
           </div>
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">ZIP / Postal code</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+            <input type="text" name="postal_code" id="postal_code" autocomplete="postal_code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
           </div>
         </div>
       </div>
@@ -54,26 +64,26 @@
     <h2 class="text-base font-semibold leading-7 text-gray-900">Grades</h2>
     <div class="mt-10 space-y-8">
       <!-- Grade Input Fields -->
-      <div id="grades-container">
+      <div id="grades_container">
           <div class="flex justify-between">
             <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label for="grade-date" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Date</label>
+              <label for="grade_date" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Date</label>
               <div class="mt-2 sm:col-span-2 sm:mt-0">
-                <input type="date" name="grade-date" id="grade-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                <input type="date" name="grades[date][]"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
               </div>
             </div>
 
             <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label for="grade-grade" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Grade</label>
+              <label for="grade_grade" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Grade</label>
               <div class="mt-2 sm:col-span-2 sm:mt-0">
-                <input type="text" name="grade-grade" id="grade-grade" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                <input type="text" name="grades[grade][]" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
               </div>
             </div>
 
             <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-              <label for="grade-score" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Score</label>
+              <label for="grade_score" class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Score</label>
               <div class="mt-2 sm:col-span-2 sm:mt-0">
-                <input type="number" name="grade-score" id="grade-score" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                <input type="number" name="grades[score][]"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
               </div>
             </div>
           </div>
