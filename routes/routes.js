@@ -15,7 +15,7 @@ let User = require('../models/user');
 function verifyToken(req,res,next){
   console.log(req.cookies.jwtToken);
   const bearerHeadr = req.cookies.jwtToken
-  if(typeof bearerHeadr != 'undefined'){
+  if(bearerHeadr != null){
       const bearer = bearerHeadr.split(' ')
       const bearerToken = bearer[1]
       req.token = bearerToken

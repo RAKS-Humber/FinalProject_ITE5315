@@ -85,6 +85,7 @@ function countRestaurants() {
 }
 
 module.exports = {
+  Restaurant,
   initialize,
   addNewRestaurant,
   getAllRestaurants,

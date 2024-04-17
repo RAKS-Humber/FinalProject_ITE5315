@@ -56,6 +56,7 @@ app.engine('.hbs', handlebars.engine(
     }
 ));
 app.set('view engine', 'hbs');
+console.log(restaurant_routes);
 app.use("/api/restaurant", restaurant_routes);
 
 app.use("/",verifyToken,(req, res) => {
@@ -69,7 +70,7 @@ app.use("/",verifyToken,(req, res) => {
   });
 
 
-app.use("/*", (req,res)=>{
+app.use("*", (req,res)=>{
     res.render("error404");
 })
 // Set constant for port
