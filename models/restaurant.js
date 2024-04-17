@@ -58,7 +58,7 @@ function addNewRestaurant(data) {
 // Function to get all restaurants with pagination and optional borough filter
 function getAllRestaurants(page, perPage, borough) {
   const skip = (page - 1) * perPage;
-  let query = Restaurant.find().skip(skip).limit(perPage).lean().sort({ restaurant_id: 1 });
+  let query = Restaurant.find().skip(skip).limit(perPage).lean().sort({ restaurant_id: -1 });
   
   if (borough) {
     query = query.where('borough').equals(borough);

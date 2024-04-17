@@ -233,7 +233,7 @@ check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
               const accessToken = jwt.sign({email:email, password:user.password}, process.env.SECRETKEY);
               res.cookie('jwtToken',`bearer ${accessToken}`);
               // res.header('authorization', `Bearer ${accessToken}`);
-              res.redirect("/api/restaurant/");
+              res.redirect("/api/restaurant/?page=1&perPage=10");
               
             } else {
               res.status(401).json({ message: "Invalid email or password" });
