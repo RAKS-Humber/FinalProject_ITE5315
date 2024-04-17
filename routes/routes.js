@@ -111,7 +111,7 @@ check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
           Restaurant.addNewRestaurant(restaurant).then(()=>{
             
             console.log(restaurant+"restaurant-------")
-            res.redirect("/")
+            res.redirect("/api/restaurant/?page=1&perPage=10")
             //res.render('addForm');
           })
           .catch((err) => {
@@ -390,7 +390,7 @@ router
                 Restaurant.deleteRestaurantById(req.body.rest_id).then(()=>{
                   //console.log('Deleted Successfully');
                   //res.render("addForm");
-                  res.redirect("/")
+                  res.redirect("/api/restaurant/?page=1&perPage=10")
                   //console.log(restaurant+"restaurant updated successfully-------")
                   //res.render('addForm');
                 })
@@ -453,7 +453,7 @@ router
                  //res.render("editForm", {restaurant:restaurant});
                  //console.log(restaurant+"restaurant updated successfully-------")
                  //res.render('addForm');
-                 res.redirect("/")
+                 res.redirect("/api/restaurant/?page=1&perPage=10")
                })
                .catch((err) => {
                  //res.status(500).json({ message: err.message });
