@@ -52,11 +52,11 @@ app.engine('.hbs', handlebars.engine(
         helpers: {
             nextPage: function(page) {
                 console.log(page);
-                return page+1;
+                return parseInt(page)+1;
             },
             prevPage: function(page) {
                 console.log(page);
-                return page-1;
+                return parseInt(page)-1;
             },
         },
     }

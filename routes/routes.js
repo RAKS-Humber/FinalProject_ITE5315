@@ -6,6 +6,8 @@ const router = express.Router();
 // Import Express validatior
 const { check,query, validationResult } = require("express-validator");
 
+
+
 // Import Book Mongoose schemas
 let Restaurant = require("../models/restaurant");
 let User = require('../models/user');
@@ -111,7 +113,7 @@ check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
           Restaurant.addNewRestaurant(restaurant).then(()=>{
             
             console.log(restaurant+"restaurant-------")
-            res.redirect("/")
+            res.redirect("/api/restaurant/?page=1&perPage=10")
             //res.render('addForm');
           })
           .catch((err) => {
@@ -159,7 +161,7 @@ check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
           const result = validationResult(req);
           if (result.isEmpty()) {
               const page = req.query.page;
-              const perPage = req.query.perPage;
+              const perPage = parseInt(req.query.perPage);
               const borough = req.query.borough;
               console.log(borough + "________borough");
               Restaurant.countRestaurants().then((count) => {
@@ -233,7 +235,7 @@ check("postal_code", "Postal Code is required").notEmpty().isLength({ max: 6 }),
               const accessToken = jwt.sign({email:email, password:user.password}, process.env.SECRETKEY);
               res.cookie('jwtToken',`bearer ${accessToken}`);
               // res.header('authorization', `Bearer ${accessToken}`);
-              res.redirect("/api/restaurant/");
+              res.redirect("/api/restaurant/?page=1&perPage=10");
               
             } else {
               res.status(401).json({ message: "Invalid email or password" });
@@ -390,7 +392,7 @@ router
                 Restaurant.deleteRestaurantById(req.body.rest_id).then(()=>{
                   //console.log('Deleted Successfully');
                   //res.render("addForm");
-                  res.redirect("/")
+                  res.redirect("/api/restaurant/?page=1&perPage=10")
                   //console.log(restaurant+"restaurant updated successfully-------")
                   //res.render('addForm');
                 })
@@ -453,7 +455,7 @@ router
                  //res.render("editForm", {restaurant:restaurant});
                  //console.log(restaurant+"restaurant updated successfully-------")
                  //res.render('addForm');
-                 res.redirect("/")
+                 res.redirect("/api/restaurant/?page=1&perPage=10")
                })
                .catch((err) => {
                  //res.status(500).json({ message: err.message });
