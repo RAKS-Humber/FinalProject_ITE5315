@@ -26,7 +26,13 @@ function verifyToken(req,res,next){
 let host=process.env.URL;
 let mydb=process.env.myDB;
 mongoose.connect(host+mydb)
-.then(() => console.log('Connected to MongoDB'))
+.then(() => {
+        // Set constant for port
+    const PORT = process.env.PORT || 8000;
+
+    // Listen on a port
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+    console.log('Connected to MongoDB')})
 .catch((err) => console.error('Error connecting to MongoDB:', err));
 let db = mongoose.connection;
 
@@ -72,8 +78,3 @@ app.use("/",verifyToken,(req, res) => {
 app.use("/*", (req,res)=>{
     res.render("error404");
 })
-// Set constant for port
-const PORT = process.env.PORT || 8000;
-
-// Listen on a port
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
