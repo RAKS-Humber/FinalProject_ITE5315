@@ -31,7 +31,7 @@ mongoose.connect(host+mydb)
     const PORT = process.env.PORT || 8000;
 
     // Listen on a port
-    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+    app.listen(8000, () => console.log(`Server started on port ${PORT}`));
     console.log('Connected to MongoDB')})
 .catch((err) => console.error('Error connecting to MongoDB:', err));
 let db = mongoose.connection;
